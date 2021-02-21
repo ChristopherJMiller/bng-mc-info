@@ -1,4 +1,4 @@
-FROM node:erbium as builder
+FROM docker.io/node:erbium as builder
 
 WORKDIR /app
 
@@ -11,7 +11,7 @@ ADD . .
 RUN yarn build:css
 RUN yarn build:html
 
-FROM nginx:1.18-alpine
+FROM docker.io/nginxinc/nginx-unprivileged:1.19-alpine
 
 COPY --from=builder /app/assets /usr/share/nginx/html/assets/
 COPY --from=builder /app/index.min.html /usr/share/nginx/html/index.html
